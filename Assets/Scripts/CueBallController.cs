@@ -11,7 +11,9 @@ public class CueBallController : MonoBehaviour
     Rigidbody rb;
     Transform tf;
     Keyboard k;
-
+    public LineRenderer lr;
+    RaycastHit hit;
+    
     public TextMeshProUGUI debugText;
     public float forceIncrement;
     public float maxForce;
@@ -24,6 +26,7 @@ public class CueBallController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         tf = GetComponent<Transform>();
         k = Keyboard.current;
+        lr = GetComponent<LineRenderer>();
     }
 
     // Update is called once per frame
@@ -42,12 +45,27 @@ public class CueBallController : MonoBehaviour
                 forceAmount += forceIncrement * Time.deltaTime;
             }
         }
-        
+        UpdateLaser();
         UpdateText();
     }
 
     void UpdateText()
     {
         debugText.text = "Force: " + Math.Round(forceAmount, 2).ToString();
+    }
+
+    void UpdateLaser()
+    {
+        lr.SetPosition(0,tf.position);
+        if(Physics.Raycast(tf.position, tf.forward, out hit))
+        {
+            lr.SetPosition(1, hit.point);
+        }
+    }
+
+    public void PointToMiddle()
+    {
+        //points to origin and keeps current y position
+        tf.LookAt(new Vector3(0, transform.position.y, 0));
     }
 }
