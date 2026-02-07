@@ -12,13 +12,14 @@ public class CueBallController : MonoBehaviour
     Transform tf;
     Keyboard k;
     public LineRenderer lr;
-    RaycastHit hit;
+    private RaycastHit hit;
+    private Vector3 hitPoint;
     
     public TextMeshProUGUI debugText;
     public float forceIncrement;
     public float maxForce;
     private float forceAmount;
-
+    public bool canShoot;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -32,19 +33,33 @@ public class CueBallController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Ensures that GameManager exists
+        if (GameManager.Instance == null) return;
+        //disables shooting while balls are in motion
+        if(GameManager.Instance.currentState == GameState.P1Motion || GameManager.Instance.currentState == GameState.P2Motion)
+        {
+            canShoot = false;
+        }else
+        {
+            canShoot = true;
+        }
+
+    
+        //adds force all at once (ForceMode.Impulse) when space key is released
         if (k.spaceKey.wasReleasedThisFrame)
         {
-            rb.AddForce(tf.forward * forceAmount, ForceMode.Impulse); //ForceMode.Impulse applies force instantly (simulating cue stick hit)
+            rb.AddForce(tf.forward * forceAmount, ForceMode.Impulse); 
             forceAmount = 0;
         }
 
-        if (k.spaceKey.isPressed)
+        if (k.spaceKey.isPressed && canShoot)
         {
             if(forceAmount < maxForce)
             {
                 forceAmount += forceIncrement * Time.deltaTime;
             }
         }
+
         UpdateLaser();
         UpdateText();
     }
@@ -59,13 +74,19 @@ public class CueBallController : MonoBehaviour
         lr.SetPosition(0,tf.position);
         if(Physics.Raycast(tf.position, tf.forward, out hit))
         {
-            lr.SetPosition(1, hit.point);
+            hitPoint = hit.point;
+        }
+        float xDifference = hitPoint.x - tf.position.x;
+        float zDifference = hitPoint.z - tf.position.z;
+        //animates the laser by changing its end point over time
+        for(int i = 0; i < 10; i++){
+            lr.SetPosition(1, tf.position + new Vector3(xDifference * (i/10f), 0, zDifference * (i/10f)));
         }
     }
 
     public void PointToMiddle()
     {
         //points to origin and keeps current y position
-        tf.LookAt(new Vector3(0, transform.position.y, 0));
+        tf.LookAt(new Vector3(0, tf.position.y, 0));
     }
 }
