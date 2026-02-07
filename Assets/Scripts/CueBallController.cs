@@ -12,8 +12,7 @@ public class CueBallController : MonoBehaviour
     Transform tf;
     Keyboard k;
     public LineRenderer lr;
-    private RaycastHit hit;
-    private Vector3 hitPoint;
+    RaycastHit hit;
     
     public TextMeshProUGUI debugText;
     public float forceIncrement;
@@ -74,13 +73,7 @@ public class CueBallController : MonoBehaviour
         lr.SetPosition(0,tf.position);
         if(Physics.Raycast(tf.position, tf.forward, out hit))
         {
-            hitPoint = hit.point;
-        }
-        float xDifference = hitPoint.x - tf.position.x;
-        float zDifference = hitPoint.z - tf.position.z;
-        //animates the laser by changing its end point over time
-        for(int i = 0; i < 10; i++){
-            lr.SetPosition(1, tf.position + new Vector3(xDifference * (i/10f), 0, zDifference * (i/10f)));
+            lr.SetPosition(1, hit.point);
         }
     }
 
