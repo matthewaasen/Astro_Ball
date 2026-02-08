@@ -19,6 +19,7 @@ public class CueBallController : MonoBehaviour
     public float maxForce;
     private float forceAmount;
     public bool canShoot;
+    public float angleIncrement;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -50,6 +51,16 @@ public class CueBallController : MonoBehaviour
             rb.AddForce(tf.forward * forceAmount, ForceMode.Impulse); 
             forceAmount = 0;
         }
+
+        if (k.leftArrowKey.isPressed && canShoot)
+        {
+            tf.Rotate(0, -angleIncrement * Time.deltaTime, 0);
+        }   
+
+        if (k.rightArrowKey.isPressed && canShoot)
+        {
+            tf.Rotate(0, angleIncrement * Time.deltaTime, 0);
+        }   
 
         if (k.spaceKey.isPressed && canShoot)
         {

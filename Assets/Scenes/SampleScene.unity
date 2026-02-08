@@ -2410,6 +2410,8 @@ MonoBehaviour:
   debugText: {fileID: 605233761}
   forceIncrement: 4
   maxForce: 7
+  canShoot: 0
+  angleIncrement: 10
 --- !u!120 &1757219057
 LineRenderer:
   serializedVersion: 3
