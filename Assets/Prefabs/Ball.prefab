@@ -124,8 +124,8 @@ Rigidbody:
   m_GameObject: {fileID: 1323313442634201999}
   serializedVersion: 5
   m_Mass: 1
-  m_LinearDamping: 0.3
-  m_AngularDamping: 2
+  m_LinearDamping: 0.4
+  m_AngularDamping: 0.5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -139,7 +139,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 4
   m_CollisionDetection: 1
 --- !u!82 &-8135597592054132421
@@ -153,7 +153,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: ce320c09ca05a4640a13900f38e68ba0, type: 3}
+  m_Resource: {fileID: 8300000, guid: 4d53020595399402791848f9ed01e388, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -199,7 +199,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -251,4 +251,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34672ab906cd748efb15dab0d58e5a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  collisionSound: {fileID: 8300000, guid: ce320c09ca05a4640a13900f38e68ba0, type: 3}
+  ballSound: {fileID: 8300000, guid: 4d53020595399402791848f9ed01e388, type: 3}
+  wallSound: {fileID: 8300000, guid: ce320c09ca05a4640a13900f38e68ba0, type: 3}

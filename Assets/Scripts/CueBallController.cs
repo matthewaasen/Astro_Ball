@@ -21,6 +21,9 @@ public class CueBallController : MonoBehaviour
     public bool canShoot;
     public float angleIncrement;
 
+    public AudioClip cueSound;
+    private AudioSource asource;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,6 +31,8 @@ public class CueBallController : MonoBehaviour
         tf = GetComponent<Transform>();
         k = Keyboard.current;
         lr = GetComponent<LineRenderer>();
+        asource = GetComponent<AudioSource>();
+        asource.playOnAwake = false;
     }
 
     // Update is called once per frame
@@ -48,8 +53,10 @@ public class CueBallController : MonoBehaviour
         //adds force all at once (ForceMode.Impulse) when space key is released
         if (k.spaceKey.wasReleasedThisFrame)
         {
+            asource.PlayOneShot(cueSound, 1.0f);
             rb.AddForce(tf.forward * forceAmount, ForceMode.Impulse); 
             forceAmount = 0;
+            
         }
 
         if (k.leftArrowKey.isPressed && canShoot)

@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour
     private Rigidbody[] ballRigidbodies;
     public float motionThreshold = 0.01f; //threshold for if a ball is considered moving
     public TextMeshProUGUI gameStateText;
-    
+    private AudioSource asource;
+    public AudioClip turnChangeSound;
    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,6 +29,9 @@ public class GameManager : MonoBehaviour
         {
             ballRigidbodies[i] = ballObjects[i].GetComponent<Rigidbody>();
         }
+
+        asource = GetComponent<AudioSource>();
+        asource.playOnAwake = false;
         //sets up the laser guide
         cueBallController.PointToMiddle();
         cueBallController.lr.enabled = true;
@@ -54,6 +58,7 @@ public class GameManager : MonoBehaviour
                 cueBallController.PointToMiddle();
                 cueBallController.lr.enabled = true;
                 currentState = GameState.P2Turn;
+                asource.PlayOneShot(turnChangeSound, 1.0f);
             }
         }
         if(currentState == GameState.P2Motion)
@@ -63,6 +68,7 @@ public class GameManager : MonoBehaviour
                 cueBallController.PointToMiddle();
                 cueBallController.lr.enabled = true;
                 currentState = GameState.P1Turn;
+                asource.PlayOneShot(turnChangeSound, 1.0f);
             }
         }
         if(currentState == GameState.P1Turn)
