@@ -6,6 +6,7 @@ public class BallController : MonoBehaviour
     public AudioClip ballSound;
     public AudioClip wallSound;
     private AudioSource asource;
+    public GameObject FX_CollisionSparks;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,9 +32,9 @@ public class BallController : MonoBehaviour
                     {
                         volume = 0.8f;
                     }
-                    if(volume < 0.2f)
+                    if(volume < 0.1f)
                     {
-                        volume = 0.2f;
+                        volume = 0.1f;
                     }
             if (c.gameObject.CompareTag("Ball"))
         {
@@ -44,16 +45,27 @@ public class BallController : MonoBehaviour
                 if(c.relativeVelocity.magnitude > 0.01f){
                     
                     asource.PlayOneShot(ballSound, volume);
-                }
+                    if(volume > 0.1f)
+                    {
+                         GameObject sparks = Instantiate(FX_CollisionSparks, c.contacts[0].point, Quaternion.identity);
+                         sparks.GetComponent<ParticleSystem>().Emit((int) (volume * 20));
+                         }
+                  }
             }
         }
             if (c.gameObject.CompareTag("Wall"))
             {
                 if(c.relativeVelocity.magnitude > 0.01f){
                     asource.PlayOneShot(wallSound, volume);
+                    if(volume > 0.1f)
+                    {
+                         GameObject sparks = Instantiate(FX_CollisionSparks, c.contacts[0].point, Quaternion.identity);
+                         sparks.GetComponent<ParticleSystem>().Emit((int) (volume * 20));
+                    }
                 }
             }
         }
     } 
-       
+    
 }
+
