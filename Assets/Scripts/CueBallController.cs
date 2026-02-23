@@ -23,6 +23,7 @@ public class CueBallController : MonoBehaviour
 
     public AudioClip cueSound;
     private AudioSource asource;
+    public ParticleSystem cueSparks;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -55,7 +56,9 @@ public class CueBallController : MonoBehaviour
         {
             asource.PlayOneShot(cueSound, 1.0f);
             rb.AddForce(tf.forward * forceAmount, ForceMode.Impulse); 
+            cueSparks.Emit(10); 
             forceAmount = 0;
+            
             
         }
 
