@@ -1,7 +1,8 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
- public enum GameState
+public enum GameState
     {
         Turn0, P1Turn, P1Motion, P2Turn, P2Motion, GameOver, Menu
     }
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        currentState = GameState.Menu;
         menuCamera.gameObject.SetActive(true);
         mainCamera.gameObject.SetActive(false);
         //Collects all Rigidbodies from balls to use for game states
@@ -39,12 +41,26 @@ public class GameManager : MonoBehaviour
         cueBallController.PointToMiddle();
         cueBallController.lr.enabled = true;
 
-        currentState = GameState.Menu;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(currentState != GameState.Menu)
+        {
+            if (Keyboard.current.cKey.isPressed){
+            menuCamera.gameObject.SetActive(true);
+            mainCamera.gameObject.SetActive(false);
+
+            }else
+            {
+                mainCamera.gameObject.SetActive(true);
+                menuCamera.gameObject.SetActive(false);
+            }
+        }
+        
+
         if(currentState == GameState.Turn0)
         {
             if (BallMoving())
