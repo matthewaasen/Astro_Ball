@@ -3,11 +3,13 @@ using TMPro;
 
  public enum GameState
     {
-        Turn0, P1Turn, P1Motion, P2Turn, P2Motion, GameOver
+        Turn0, P1Turn, P1Motion, P2Turn, P2Motion, GameOver, Menu
     }
     
 public class GameManager : MonoBehaviour
 {
+    public Camera mainCamera;
+    public Camera menuCamera;
     public CueBallController cueBallController;
     //allows other scripts to reference this one
     public static GameManager Instance;
@@ -21,7 +23,8 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        menuCamera.gameObject.SetActive(true);
+        mainCamera.gameObject.SetActive(false);
         //Collects all Rigidbodies from balls to use for game states
         GameObject[] ballObjects = GameObject.FindGameObjectsWithTag("Ball");
         ballRigidbodies = new Rigidbody[ballObjects.Length];
@@ -36,7 +39,7 @@ public class GameManager : MonoBehaviour
         cueBallController.PointToMiddle();
         cueBallController.lr.enabled = true;
 
-        currentState = GameState.Turn0;
+        currentState = GameState.Menu;
     }
 
     // Update is called once per frame
@@ -58,7 +61,7 @@ public class GameManager : MonoBehaviour
                 cueBallController.PointToMiddle();
                 cueBallController.lr.enabled = true;
                 currentState = GameState.P2Turn;
-                asource.PlayOneShot(turnChangeSound, 1.0f);
+                asource.PlayOneShot(turnChangeSound, 0.5f);
             }
         }
         if(currentState == GameState.P2Motion)
@@ -68,7 +71,7 @@ public class GameManager : MonoBehaviour
                 cueBallController.PointToMiddle();
                 cueBallController.lr.enabled = true;
                 currentState = GameState.P1Turn;
-                asource.PlayOneShot(turnChangeSound, 1.0f);
+                asource.PlayOneShot(turnChangeSound, 0.5f);
             }
         }
         if(currentState == GameState.P1Turn)
@@ -121,5 +124,12 @@ public class GameManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void StartGame()
+    {
+        menuCamera.gameObject.SetActive(false);
+        mainCamera.gameObject.SetActive(true);
+        currentState = GameState.Turn0;
     }
 }
