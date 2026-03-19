@@ -101,7 +101,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1323313442634201999}
-  m_Material: {fileID: 13400000, guid: b579c54ff34ed4d8a9aa45698ac33e8a, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -254,3 +254,4 @@ MonoBehaviour:
   ballSound: {fileID: 8300000, guid: 4d53020595399402791848f9ed01e388, type: 3}
   wallSound: {fileID: 8300000, guid: ce320c09ca05a4640a13900f38e68ba0, type: 3}
   FX_CollisionSparks: {fileID: 6865881996930153664, guid: 404b00b421c6549a585ea591b6397ae8, type: 3}
+  ballColor: 

@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameStateText;
     private AudioSource asource;
     public AudioClip turnChangeSound;
-   
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

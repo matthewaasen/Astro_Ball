@@ -7,6 +7,8 @@ public class BallController : MonoBehaviour
     public AudioClip wallSound;
     private AudioSource asource;
     public GameObject FX_CollisionSparks;
+    
+    public string ballColor;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
