@@ -42,17 +42,17 @@ public class CueBallController : MonoBehaviour
         //Ensures that GameManager exists
         if (GameManager.Instance == null) return;
         //disables shooting while balls are in motion
-        if(GameManager.Instance.currentState == GameState.P1Motion || GameManager.Instance.currentState == GameState.P2Motion)
-        {
-            canShoot = false;
-        }else
+        if(GameManager.Instance.currentState == GameState.P1Turn || GameManager.Instance.currentState == GameState.P2Turn || GameManager.Instance.currentState == GameState.Turn0)
         {
             canShoot = true;
+        }else
+        {
+            canShoot = false;
         }
 
     
         //adds force all at once (ForceMode.Impulse) when space key is released
-        if (k.spaceKey.wasReleasedThisFrame)
+        if (k.spaceKey.wasReleasedThisFrame && canShoot)
         {
             asource.PlayOneShot(cueSound, 1.0f);
             rb.AddForce(tf.forward * forceAmount, ForceMode.Impulse); 
