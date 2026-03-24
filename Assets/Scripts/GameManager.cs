@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     //game mechanics
     private bool blueSunk;
     private bool redSunk;
+    private string firstSunk;
     public string p1Color;
     private string p2Color;
 
@@ -48,7 +49,7 @@ public class GameManager : MonoBehaviour
         cueBallController.lr.enabled = true;
         blueSunk = false;
         redSunk = false;
-        
+        firstSunk = "None";
         
     }
 
@@ -85,7 +86,7 @@ public class GameManager : MonoBehaviour
             if(!BallMoving())
             {
                 //check if P1 goes again (sunk correct color and not other color)
-                if(p1Color == "Blue" && blueSunk && !redSunk || p1Color == "Red" && redSunk && !blueSunk)
+                if(p1Color == firstSunk)
                 {
                     cueBallController.PointToMiddle();
                     cueBallController.lr.enabled = true;
@@ -106,7 +107,7 @@ public class GameManager : MonoBehaviour
         {
             if(!BallMoving())
             {
-                if(p2Color == "Blue" && blueSunk && !redSunk || p2Color == "Red" && redSunk && !blueSunk)
+                if(p2Color == firstSunk)
                 {
                     cueBallController.PointToMiddle();
                     cueBallController.lr.enabled = true;
@@ -127,6 +128,8 @@ public class GameManager : MonoBehaviour
             //resets sunk status
             blueSunk = false;
             redSunk = false;
+            firstSunk = "None";
+
             if (BallMoving())
             {
                 cueBallController.lr.enabled = false;
@@ -138,6 +141,7 @@ public class GameManager : MonoBehaviour
             //resets sunk status
             blueSunk = false;
             redSunk = false;
+            firstSunk = "None";
             if (BallMoving())
             {
                 cueBallController.lr.enabled = false;
@@ -195,68 +199,29 @@ public class GameManager : MonoBehaviour
     {
         ballObject.GetComponent<BallController>().SinkBall();
         
-        if (color == "Blue")
+        if(firstSunk == "None")
         {
-            blueSunk = true;
+            firstSunk = color;
         }
-        else if (color == "Red")
-        {
-            redSunk = true;
-        }
-        
-        //sets player color if it's not yet set
-        if((currentState == GameState.P1Motion) || (currentState == GameState.P2Motion))
-        {
-            if(currentState == GameState.P1Motion)
+        //assigns colors to players if not already assigned
+        if(p1Color == "None" && currentState == GameState.P1Motion)
+        { 
+            p1Color = color;
+            if(color == "Blue")
             {
-            if(p1Color == "None")
-            {
-                if(blueSunk)
-                {
-                    p1Color = "Blue";
-                    p2Color = "Red";
-                }
-                else if(redSunk)
-                {
-                    p1Color = "Red";
-                    p2Color = "Blue";
-                }
-            }
-            }
-            if(currentState == GameState.P2Motion)
-            {
-            if(p1Color == "None")
-            {
-                if(blueSunk)
-                {
-                    p2Color = "Blue";
-                    p1Color = "Red";
-                }
-                else if(redSunk)
-                {
-                    p2Color = "Red";
-                    p1Color = "Blue";
-                }
-            }
-            }
-        }
-        else if(currentState == GameState.P2Motion || currentState == GameState.P2Turn)
-        {
-        if(p1Color == "None")
-        {
-            if(blueSunk)
-            {
-                p1Color = "Blue";
                 p2Color = "Red";
-            }
-            else if(redSunk)
+            }else{
+                p2Color = "Blue";
+            }    
+        }else if(p1Color == "None" && currentState == GameState.P2Motion)
+        {
+            p2Color = color;
+            if(color == "Blue")
             {
                 p1Color = "Red";
-                p2Color = "Blue";
-            }
+            }else{
+                p1Color = "Blue";
+            }    
         }
-        
-
     }
-}
 }

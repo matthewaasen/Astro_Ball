@@ -18,6 +18,19 @@ public class BallController : MonoBehaviour
         asource.playOnAwake = false;
         asource.spatialBlend = 1.0f;
         sunk = false;
+
+        if(ballColor == "Red")
+        {
+            GetComponent<Light>().color = Color.red;
+        }
+        if(ballColor == "Blue")
+        {
+            GetComponent<Light>().color = Color.cyan;
+        }
+        if(ballColor == "Eight")
+        {
+            GetComponent<Light>().color = Color.purple;
+        }
     }
 
     // Update is called once per frame
