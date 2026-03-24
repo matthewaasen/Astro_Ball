@@ -18,8 +18,11 @@ public class PocketController : MonoBehaviour
     {
         if (trigger.gameObject.CompareTag("Ball"))
         {
-            //destroys the ball that collides with the pocket
-            Destroy(trigger.gameObject);
+            GameManager.Instance.BallSunk(trigger.gameObject.GetComponent<BallController>().ballColor, trigger.gameObject);
+        }
+        if (trigger.gameObject.CompareTag("CueBall"))
+        {
+            
         }
     }
 }

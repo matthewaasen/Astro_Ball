@@ -9,6 +9,7 @@ public class BallController : MonoBehaviour
     public GameObject FX_CollisionSparks;
     
     public string ballColor;
+    public bool sunk;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -16,6 +17,7 @@ public class BallController : MonoBehaviour
         asource = GetComponent<AudioSource>();
         asource.playOnAwake = false;
         asource.spatialBlend = 1.0f;
+        sunk = false;
     }
 
     // Update is called once per frame
@@ -68,6 +70,16 @@ public class BallController : MonoBehaviour
             }
         }
     } 
+
+    public void SinkBall()
+    {
+        sunk = true;
+        //disables the ball's physics and makes it invisible
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<SphereCollider>().enabled = false;
+        GetComponent<Rigidbody>().isKinematic = true;
+        //tells game manager what color ball was sunk
+    }
     
 }
 

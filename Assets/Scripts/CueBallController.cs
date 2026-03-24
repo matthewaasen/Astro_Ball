@@ -45,9 +45,11 @@ public class CueBallController : MonoBehaviour
         if(GameManager.Instance.currentState == GameState.P1Turn || GameManager.Instance.currentState == GameState.P2Turn || GameManager.Instance.currentState == GameState.Turn0)
         {
             canShoot = true;
+            lr.enabled = true;
         }else
         {
             canShoot = false;
+            lr.enabled = false;
         }
 
     
