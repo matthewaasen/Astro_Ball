@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameStateText;
     private AudioSource asource;
     public AudioClip turnChangeSound;
+    public bool scratch;
 
     //game mechanics
     private bool blueSunk;
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
         cueBallController.lr.enabled = true;
         blueSunk = false;
         redSunk = false;
+        scratch = false;
         firstSunk = "None";
         
     }
@@ -125,6 +127,12 @@ public class GameManager : MonoBehaviour
         }
         if(currentState == GameState.P1Turn)
         {
+            //if cue ball was hit in by previous player
+            if (scratch)
+            {
+                cueBallController.Scratch();
+                scratch = false;
+            }
             //resets sunk status
             blueSunk = false;
             redSunk = false;
@@ -138,6 +146,12 @@ public class GameManager : MonoBehaviour
         }
         if(currentState == GameState.P2Turn)
         {
+            //if cue ball was hit in by previous player
+            if (scratch)
+            {
+                cueBallController.Scratch();
+                scratch = false;
+            }
             //resets sunk status
             blueSunk = false;
             redSunk = false;

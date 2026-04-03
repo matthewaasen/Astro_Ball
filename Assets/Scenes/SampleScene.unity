@@ -1604,7 +1604,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1323313442634201999, guid: d3708373ecad64c7c91d2a0063bbaa2a, type: 3}
       propertyPath: m_TagString
-      value: Ball
+      value: CueBall
       objectReference: {fileID: 0}
     - target: {fileID: 1543682307124437313, guid: d3708373ecad64c7c91d2a0063bbaa2a, type: 3}
       propertyPath: m_Mass
@@ -2885,6 +2885,7 @@ MonoBehaviour:
   motionThreshold: 0.01
   gameStateText: {fileID: 1755312352}
   turnChangeSound: {fileID: 8300000, guid: 0b9e54f83d0c8465f97c4fcbfad2e3d5, type: 3}
+  scratch: 0
   p1Color: 
 --- !u!4 &1149405363
 Transform:

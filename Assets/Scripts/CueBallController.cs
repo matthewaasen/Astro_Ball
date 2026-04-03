@@ -105,4 +105,13 @@ public class CueBallController : MonoBehaviour
         //points to origin and keeps current y position
         tf.LookAt(new Vector3(0, tf.position.y, 0));
     }
+
+    public void Scratch()
+    {
+        tf.position = new Vector3(0, tf.position.y, -0.7f);
+        //disables the ball's physics and makes it invisible
+        GetComponent<MeshRenderer>().enabled = true;
+        GetComponent<SphereCollider>().enabled = true;
+        GetComponent<Rigidbody>().isKinematic = false;
+    }
 }

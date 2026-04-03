@@ -51,7 +51,8 @@ public class PocketController : MonoBehaviour
         }
         if (trigger.gameObject.CompareTag("CueBall"))
         {
-            
+            GameManager.Instance.scratch = true;
+            GameManager.Instance.BallSunk(trigger.gameObject.GetComponent<BallController>().ballColor, trigger.gameObject);
         }
 
        

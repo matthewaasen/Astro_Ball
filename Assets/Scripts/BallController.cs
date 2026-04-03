@@ -86,12 +86,16 @@ public class BallController : MonoBehaviour
 
     public void SinkBall()
     {
-        sunk = true;
+        if(!gameObject.CompareTag("CueBall"))
+        {
+            sunk = true;
+        }
+        
         //disables the ball's physics and makes it invisible
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<SphereCollider>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
-        //tells game manager what color ball was sunk
+
     }
     
 }
