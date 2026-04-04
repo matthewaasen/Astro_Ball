@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
         }
         if(currentState == GameState.P1Motion)
         {
+            cueBallController.lr.enabled = false;
             //transition between P1 motion and P2 turn
             if(!BallMoving())
             {
@@ -107,6 +108,7 @@ public class GameManager : MonoBehaviour
         }
         if(currentState == GameState.P2Motion)
         {
+            cueBallController.lr.enabled = false;
             if(!BallMoving())
             {
                 if(p2Color == firstSunk)

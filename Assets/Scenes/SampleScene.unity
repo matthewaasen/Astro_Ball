@@ -1608,11 +1608,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1543682307124437313, guid: d3708373ecad64c7c91d2a0063bbaa2a, type: 3}
       propertyPath: m_Mass
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1543682307124437313, guid: d3708373ecad64c7c91d2a0063bbaa2a, type: 3}
       propertyPath: m_LinearDamping
-      value: 0.3
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 6281921391718773246, guid: d3708373ecad64c7c91d2a0063bbaa2a, type: 3}
       propertyPath: m_LocalPosition.x

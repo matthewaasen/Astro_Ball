@@ -64,15 +64,12 @@ public class CueBallController : MonoBehaviour
             
         }
 
-        if (k.leftArrowKey.isPressed && canShoot)
+        if (canShoot)
         {
-            tf.Rotate(0, -angleIncrement * Time.deltaTime, 0);
-        }   
-
-        if (k.rightArrowKey.isPressed && canShoot)
-        {
-            tf.Rotate(0, angleIncrement * Time.deltaTime, 0);
-        }   
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), Camera.main.transform.position.y - tf.position.y));
+            Vector3 direction = mousePos - tf.position;
+            transform.rotation = Quaternion.LookRotation(direction);
+        }
 
         if (k.spaceKey.isPressed && canShoot)
         {
@@ -81,6 +78,8 @@ public class CueBallController : MonoBehaviour
                 forceAmount += forceIncrement * Time.deltaTime;
             }
         }
+
+
 
         UpdateLaser();
         UpdateText();
