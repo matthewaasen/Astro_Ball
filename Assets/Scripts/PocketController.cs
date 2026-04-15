@@ -47,6 +47,13 @@ public class PocketController : MonoBehaviour
     {
         if (trigger.gameObject.CompareTag("Ball"))
         {
+            if(trigger.gameObject.GetComponent<BallController>().ballColor == "Red")
+            {
+                GameManager.Instance.p2Left--;
+            }else if(trigger.gameObject.GetComponent<BallController>().ballColor == "Blue")
+            {
+                GameManager.Instance.p1Left--;
+            }
             GameManager.Instance.BallSunk(trigger.gameObject.GetComponent<BallController>().ballColor, trigger.gameObject);
         }
         if (trigger.gameObject.CompareTag("CueBall"))
@@ -54,7 +61,36 @@ public class PocketController : MonoBehaviour
             GameManager.Instance.scratch = true;
             GameManager.Instance.BallSunk(trigger.gameObject.GetComponent<BallController>().ballColor, trigger.gameObject);
         }
-
-       
+        if (trigger.gameObject.CompareTag("8Ball"))
+        {
+            //P1 Sinks 8Ball
+            if(GameManager.Instance.currentState == GameState.P1Motion)
+            {
+                if(GameManager.Instance.p1Left == 0)
+                {
+                    GameManager.Instance.BallSunk(trigger.gameObject.GetComponent<BallController>().ballColor, trigger.gameObject);
+                    GameManager.Instance.currentState = GameState.P1Wins;
+                }else
+                {                   
+                    GameManager.Instance.BallSunk(trigger.gameObject.GetComponent<BallController>().ballColor, trigger.gameObject);
+                    GameManager.Instance.currentState = GameState.P2Wins;
+                }
+            
+            }
+            //P1 Sinks 8Ball
+            if(GameManager.Instance.currentState == GameState.P2Motion)
+            {
+                if(GameManager.Instance.p2Left == 0)
+                {
+                    GameManager.Instance.BallSunk(trigger.gameObject.GetComponent<BallController>().ballColor, trigger.gameObject);
+                    GameManager.Instance.currentState = GameState.P2Wins;
+                }else
+                {                   
+                    GameManager.Instance.BallSunk(trigger.gameObject.GetComponent<BallController>().ballColor, trigger.gameObject);
+                    GameManager.Instance.currentState = GameState.P1Wins;
+                }
+            
+            }
+        }
 }
 }

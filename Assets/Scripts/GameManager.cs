@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public enum GameState
     {
-        Turn0, P1Turn, P1Motion, P2Turn, P2Motion, GameOver, Menu
+        Turn0, P1Turn, P1Motion, P2Turn, P2Motion, P1Wins, P2Wins, Menu
     }
     
 public class GameManager : MonoBehaviour
@@ -28,11 +28,15 @@ public class GameManager : MonoBehaviour
     private string firstSunk;
     public string p1Color;
     private string p2Color;
-
+    public string firstHit;
+    public int p1Left;
+    public int p2Left;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         currentState = GameState.Menu;
+        p1Left = 7;
+        p2Left = 7;
         menuCamera.gameObject.SetActive(true);
         mainCamera.gameObject.SetActive(false);
         //Collects all Rigidbodies from balls to use for game states
@@ -52,6 +56,7 @@ public class GameManager : MonoBehaviour
         redSunk = false;
         scratch = false;
         firstSunk = "None";
+        firstHit = "None";
         
     }
 
@@ -88,16 +93,28 @@ public class GameManager : MonoBehaviour
             //transition between P1 motion and P2 turn
             if(!BallMoving())
             {
-                //check if P1 goes again (sunk correct color and not other color)
-                if(p1Color == firstSunk)
+                if (scratch)
+                {
+                    currentState = GameState.P2Turn;
+                    return;
+                }
+                //p1 Foul
+                if(p1Color != "None" && p1Color != firstHit)
+                {
+                    cueBallController.PointToMiddle();
+                    cueBallController.lr.enabled = true;
+                    currentState = GameState.P2Turn;
+                    asource.PlayOneShot(turnChangeSound, 0.5f);
+                    return;
+                }
+                //p1 go again
+                if(p1Color == "Red" && redSunk || p1Color == "Blue" && blueSunk)
                 {
                     cueBallController.PointToMiddle();
                     cueBallController.lr.enabled = true;
                     currentState = GameState.P1Turn;
                     return;
-                }
-                else
-                {
+                }else{ //p1 turn over, switch to p2
                     cueBallController.PointToMiddle();
                     cueBallController.lr.enabled = true;
                     currentState = GameState.P2Turn;
@@ -111,20 +128,34 @@ public class GameManager : MonoBehaviour
             cueBallController.lr.enabled = false;
             if(!BallMoving())
             {
-                if(p2Color == firstSunk)
+                if (scratch)
                 {
-                    cueBallController.PointToMiddle();
-                    cueBallController.lr.enabled = true;
-                    currentState = GameState.P2Turn;
+                    currentState = GameState.P1Turn;
                     return;
                 }
-                else
+                //p2 Foul
+                if(p2Color != "None" && p2Color != firstHit)
                 {
                     cueBallController.PointToMiddle();
                     cueBallController.lr.enabled = true;
                     currentState = GameState.P1Turn;
                     asource.PlayOneShot(turnChangeSound, 0.5f);
+                    return;
                 }
+                //p2 go again
+                if(p2Color == "Red" && redSunk || p2Color == "Blue" && blueSunk)
+                {
+                    cueBallController.PointToMiddle();
+                    cueBallController.lr.enabled = true;
+                    currentState = GameState.P2Turn;
+                    return;
+                }else{ //p2 turn over, switch to p1
+                    cueBallController.PointToMiddle();
+                    cueBallController.lr.enabled = true;
+                    currentState = GameState.P1Turn;
+                    asource.PlayOneShot(turnChangeSound, 0.5f);
+                }
+
             }
         }
         if(currentState == GameState.P1Turn)
@@ -139,6 +170,7 @@ public class GameManager : MonoBehaviour
             blueSunk = false;
             redSunk = false;
             firstSunk = "None";
+            firstHit = "None";
 
             if (BallMoving())
             {
@@ -158,6 +190,7 @@ public class GameManager : MonoBehaviour
             blueSunk = false;
             redSunk = false;
             firstSunk = "None";
+            firstHit = "None";
             if (BallMoving())
             {
                 cueBallController.lr.enabled = false;
@@ -218,6 +251,14 @@ public class GameManager : MonoBehaviour
         if(firstSunk == "None")
         {
             firstSunk = color;
+        }
+        //sets redSunk and blueSunk
+        if(color == "Red")
+        {
+            redSunk = true;
+        }else if(color == "Blue")
+        {           
+            blueSunk = true;
         }
         //assigns colors to players if not already assigned
         if(p1Color == "None" && currentState == GameState.P1Motion)

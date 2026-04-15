@@ -9,6 +9,7 @@ TagManager:
   - Menu
   - CueBall
   - Pocket
+  - 8Ball
   layers:
   - Default
   - TransparentFX

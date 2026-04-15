@@ -113,4 +113,12 @@ public class CueBallController : MonoBehaviour
         GetComponent<SphereCollider>().enabled = true;
         GetComponent<Rigidbody>().isKinematic = false;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ball"))
+        {
+            GameManager.Instance.firstHit = collision.gameObject.GetComponent<BallController>().ballColor;
+        }
+    }
 }

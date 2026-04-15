@@ -80,6 +80,7 @@ public class BallSpawner : MonoBehaviour
             }else if(ballSetMaterials[i] == 2)
             {
                 ballObjects[i].GetComponent<BallController>().ballColor = "Eight";
+                ballObjects[i].transform.tag = "8Ball";
                 ballObjects[i].GetComponent<Renderer>().material = ballMaterials[2]; 
             }
         
