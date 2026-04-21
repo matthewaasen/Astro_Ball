@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     private AudioSource asource;
     public AudioClip turnChangeSound;
     public bool scratch;
-
+    public TextMeshProUGUI turnText;
     //game mechanics
     private bool blueSunk;
     private bool redSunk;
@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
     {
         if(currentState != GameState.Menu)
         {
+            turnText.gameObject.SetActive(false);
             if (Keyboard.current.cKey.isPressed){
             menuCamera.gameObject.SetActive(true);
             mainCamera.gameObject.SetActive(false);
@@ -160,6 +161,7 @@ public class GameManager : MonoBehaviour
         }
         if(currentState == GameState.P1Turn)
         {
+            FreezeBalls();
             //if cue ball was hit in by previous player
             if (scratch)
             {
@@ -180,6 +182,7 @@ public class GameManager : MonoBehaviour
         }
         if(currentState == GameState.P2Turn)
         {
+            FreezeBalls();
             //if cue ball was hit in by previous player
             if (scratch)
             {
@@ -215,10 +218,37 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    private void FreezeBalls()
+    {
+        for(int i = 0; i < ballRigidbodies.Length; i++)
+        {
+            if(ballRigidbodies[i] == null)
+            {
+                continue; //skip if ball has been destroyed
+            } 
+            ballRigidbodies[i].linearVelocity = Vector3.zero;
+            ballRigidbodies[i].angularVelocity = Vector3.zero;
+        }
+    }
     private void updateGameStateText()
     {
         gameStateText.text = "Game State: " + currentState.ToString() + " P1 Color: " + p1Color + " P2 Color: " + p2Color;
+        if(currentState == GameState.Menu)
+        {
+            turnText.gameObject.SetActive(false);
+        }
+        else
+        {
+            turnText.gameObject.SetActive(true);
+        }
+        if(currentState == GameState.P1Motion || currentState == GameState.P1Turn || currentState == GameState.Turn0)
+        {
+            turnText.text = "Player 1's Turn";
+        }
+        else
+        {
+            turnText.text = "Player 2's Turn";
+        }
     }
     private bool BallMoving()
     {
