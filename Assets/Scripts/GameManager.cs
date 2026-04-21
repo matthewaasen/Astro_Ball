@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public GameState currentState;
     private Rigidbody[] ballRigidbodies;
+    private Rigidbody cueBallRigidbody;
     public float motionThreshold = 0.01f; //threshold for if a ball is considered moving
     public TextMeshProUGUI gameStateText;
     private AudioSource asource;
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
     private bool redSunk;
     private string firstSunk;
     public string p1Color;
-    private string p2Color;
+    public string p2Color;
     public string firstHit;
     public int p1Left;
     public int p2Left;
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
         //Collects all Rigidbodies from balls to use for game states
         GameObject[] ballObjects = GameObject.FindGameObjectsWithTag("Ball");
         ballRigidbodies = new Rigidbody[ballObjects.Length];
+        cueBallRigidbody = GameObject.FindGameObjectWithTag("CueBall").GetComponent<Rigidbody>();
         for (int i = 0; i < ballObjects.Length; i++)
         {
             ballRigidbodies[i] = ballObjects[i].GetComponent<Rigidbody>();
@@ -88,7 +90,7 @@ public class GameManager : MonoBehaviour
                 currentState = GameState.P1Motion;
             }
         }
-        if(currentState == GameState.P1Motion)
+        else if(currentState == GameState.P1Motion)
         {
             cueBallController.lr.enabled = false;
             //transition between P1 motion and P2 turn
@@ -125,7 +127,7 @@ public class GameManager : MonoBehaviour
                 
             }
         }
-        if(currentState == GameState.P2Motion)
+        else if(currentState == GameState.P2Motion)
         {
             cueBallController.lr.enabled = false;
             if(!BallMoving())
@@ -161,7 +163,7 @@ public class GameManager : MonoBehaviour
 
             }
         }
-        if(currentState == GameState.P1Turn)
+        else if(currentState == GameState.P1Turn)
         {
             
             //if cue ball was hit in by previous player
@@ -182,11 +184,13 @@ public class GameManager : MonoBehaviour
                 currentState = GameState.P1Motion;
             }
         }
-        if(currentState == GameState.P2Turn)
+        else if(currentState == GameState.P2Turn)
         {
             //if cue ball was hit in by previous player
             if (scratch)
             {
+                cueBallController.PointToMiddle();
+                cueBallController.lr.enabled = true;
                 cueBallController.Scratch();
                 scratch = false;
             }
@@ -263,8 +267,12 @@ public class GameManager : MonoBehaviour
             if(ballRigidbodies[i].linearVelocity.magnitude > motionThreshold)
             {
                 return true;
-            }
+            }   
         }
+        if(cueBallRigidbody.linearVelocity.magnitude > motionThreshold)
+            {
+                return true;
+            }
         return false;
     }
 

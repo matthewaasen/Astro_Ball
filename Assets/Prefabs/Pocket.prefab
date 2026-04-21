@@ -134,6 +134,10 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 5ef2dec309da34774b917f8a81576056, type: 2}
   - {fileID: 2100000, guid: c6c29d2446009422eb689922576365f5, type: 2}
   - {fileID: 2100000, guid: 8d6393bd33ece42eea57397dd8e943b0, type: 2}
+  pocketSound: {fileID: 8300000, guid: 752fb7c036da1455e98e53cdb7fc2117, type: 3}
+  otherPocketSound: {fileID: 8300000, guid: a56b28751c29c4f579448bff8b120dd5, type: 3}
+  scratchSound: {fileID: 8300000, guid: 9fe5263d5ce0e450c8e4f40060ba860a, type: 3}
+  EightBallPocketSound: {fileID: 8300000, guid: 5a2433a5f7d5c48a9ac3a4055f6ac5eb, type: 3}
 --- !u!108 &5949817075091567488
 Light:
   m_ObjectHideFlags: 0

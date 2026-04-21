@@ -116,7 +116,7 @@ public class CueBallController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ball"))
+        if(GameManager.Instance.firstHit == "None" && collision.gameObject.CompareTag("Ball"))
         {
             GameManager.Instance.firstHit = collision.gameObject.GetComponent<BallController>().ballColor;
         }

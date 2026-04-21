@@ -8,10 +8,15 @@ public class PocketController : MonoBehaviour
     public AudioClip otherPocketSound;
     public AudioClip scratchSound;
     public AudioClip EightBallPocketSound;
+    private MeshRenderer mr;
+    private Light light;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         asource = GetComponent<AudioSource>();
+        mr = GetComponent<MeshRenderer>();
+        light = GetComponent<Light>();
+
     }
 
     // Update is called once per frame
@@ -21,29 +26,30 @@ public class PocketController : MonoBehaviour
         if (GameManager.Instance.currentState == GameState.Turn0 || GameManager.Instance.currentState == GameState.Menu)
         {
                 //sets to Material 0 and the light to white
-                GetComponent<MeshRenderer>().material = materials[0];
-                GetComponent<Light>().color = Color.white;
-        }else if (GameManager.Instance.currentState == GameState.P1Turn || GameManager.Instance.currentState == GameState.P1Motion)
+                mr.material = materials[0];
+                light.color = Color.white;
+        }
+        if (GameManager.Instance.currentState == GameState.P1Turn || GameManager.Instance.currentState == GameState.P1Motion)
         {
                 //sets to Material 1 and the light to blue
                 if(GameManager.Instance.p1Color == "Red")
                 {
-                    GetComponent<MeshRenderer>().material = materials[2];
-                    GetComponent<Light>().color = Color.red;
+                    mr.material = materials[2];
+                    light.color = Color.red;
                 }else if(GameManager.Instance.p1Color == "Blue")
                 {
-                    GetComponent<MeshRenderer>().material = materials[1];
-                    GetComponent<Light>().color = Color.cyan;
+                    mr.material = materials[1];
+                    light.color = Color.cyan;
                 }
         }else if (GameManager.Instance.currentState == GameState.P2Turn || GameManager.Instance.currentState == GameState.P2Motion)
         {       if(GameManager.Instance.p1Color == "Red")
                 {
-                    GetComponent<MeshRenderer>().material = materials[1];
-                    GetComponent<Light>().color = Color.cyan;
+                    mr.material = materials[1];
+                    light.color = Color.cyan;
                 }else if(GameManager.Instance.p1Color == "Blue")                
                 {
-                    GetComponent<MeshRenderer>().material = materials[2];
-                    GetComponent<Light>().color = Color.red;
+                    mr.material = materials[2];
+                    light.color = Color.red;
                 }   
     }
     }
@@ -52,16 +58,13 @@ public class PocketController : MonoBehaviour
     {
         if (trigger.gameObject.CompareTag("Ball"))
         {
-            //NEEDS TO BE FIXED
-            //
-            //
-            //
-            if(trigger.gameObject.GetComponent<BallController>().ballColor == "Red")
-            {
-                GameManager.Instance.p2Left--;
-            }else if(trigger.gameObject.GetComponent<BallController>().ballColor == "Blue")
+
+            if(trigger.gameObject.GetComponent<BallController>().ballColor == GameManager.Instance.p1Color)
             {
                 GameManager.Instance.p1Left--;
+            }else if(trigger.gameObject.GetComponent<BallController>().ballColor == GameManager.Instance.p2Color)
+            {
+                GameManager.Instance.p2Left--;
             }
             GameManager.Instance.BallSunk(trigger.gameObject.GetComponent<BallController>().ballColor, trigger.gameObject);
         }
