@@ -3,10 +3,15 @@ using UnityEngine;
 public class PocketController : MonoBehaviour
 {
     public Material[] materials;
+    private AudioSource asource;
+    public AudioClip pocketSound;
+    public AudioClip otherPocketSound;
+    public AudioClip scratchSound;
+    public AudioClip EightBallPocketSound;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        asource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -47,6 +52,10 @@ public class PocketController : MonoBehaviour
     {
         if (trigger.gameObject.CompareTag("Ball"))
         {
+            //NEEDS TO BE FIXED
+            //
+            //
+            //
             if(trigger.gameObject.GetComponent<BallController>().ballColor == "Red")
             {
                 GameManager.Instance.p2Left--;
@@ -60,9 +69,11 @@ public class PocketController : MonoBehaviour
         {
             GameManager.Instance.scratch = true;
             GameManager.Instance.BallSunk(trigger.gameObject.GetComponent<BallController>().ballColor, trigger.gameObject);
+            asource.PlayOneShot(scratchSound, 1.0f);
         }
         if (trigger.gameObject.CompareTag("8Ball"))
         {
+            asource.PlayOneShot(EightBallPocketSound, 1.0f);
             //P1 Sinks 8Ball
             if(GameManager.Instance.currentState == GameState.P1Motion)
             {

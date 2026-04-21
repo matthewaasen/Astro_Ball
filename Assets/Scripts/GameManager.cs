@@ -120,6 +120,7 @@ public class GameManager : MonoBehaviour
                     cueBallController.lr.enabled = true;
                     currentState = GameState.P2Turn;
                     asource.PlayOneShot(turnChangeSound, 0.5f);
+                    FreezeBalls();
                 }
                 
             }
@@ -155,13 +156,14 @@ public class GameManager : MonoBehaviour
                     cueBallController.lr.enabled = true;
                     currentState = GameState.P1Turn;
                     asource.PlayOneShot(turnChangeSound, 0.5f);
+                    FreezeBalls();
                 }
 
             }
         }
         if(currentState == GameState.P1Turn)
         {
-            FreezeBalls();
+            
             //if cue ball was hit in by previous player
             if (scratch)
             {
@@ -182,7 +184,6 @@ public class GameManager : MonoBehaviour
         }
         if(currentState == GameState.P2Turn)
         {
-            FreezeBalls();
             //if cue ball was hit in by previous player
             if (scratch)
             {
