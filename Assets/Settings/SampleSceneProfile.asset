@@ -24,7 +24,7 @@ MonoBehaviour:
     m_Value: 2.94
   scatter:
     m_OverrideState: 1
-    m_Value: 0.65
+    m_Value: 0.644
   clamp:
     m_OverrideState: 0
     m_Value: 65472
@@ -35,7 +35,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
   filter:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   downscale:
     m_OverrideState: 0
@@ -50,6 +50,28 @@ MonoBehaviour:
   dirtIntensity:
     m_OverrideState: 0
     m_Value: 4
+--- !u!114 &-6817664124746974218
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70afe9e12c7a7ed47911bb608a23a8ff, type: 3}
+  m_Name: SplitToning
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.SplitToning
+  active: 0
+  shadows:
+    m_OverrideState: 1
+    m_Value: {r: 0.40330186, g: 0.500496, b: 0.5377358, a: 1}
+  highlights:
+    m_OverrideState: 1
+    m_Value: {r: 0.6792453, g: 0.5001113, b: 0.36845854, a: 1}
+  balance:
+    m_OverrideState: 1
+    m_Value: 19
 --- !u!114 &-4938036619247679557
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -124,6 +146,31 @@ MonoBehaviour:
   rounded:
     m_OverrideState: 0
     m_Value: 0
+--- !u!114 &-235852398909817749
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29fa0085f50d5e54f8144f766051a691, type: 3}
+  m_Name: FilmGrain
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.FilmGrain
+  active: 1
+  type:
+    m_OverrideState: 1
+    m_Value: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.541
+  response:
+    m_OverrideState: 1
+    m_Value: 0.258
+  texture:
+    m_OverrideState: 0
+    m_Value: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +192,8 @@ MonoBehaviour:
   - {fileID: 7112142097250488375}
   - {fileID: -4938036619247679557}
   - {fileID: 7404738294321843624}
+  - {fileID: -235852398909817749}
+  - {fileID: -6817664124746974218}
 --- !u!114 &849379129802519247
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -219,7 +268,7 @@ MonoBehaviour:
     m_Value: 1.27
   contrast:
     m_OverrideState: 1
-    m_Value: 4.16
+    m_Value: 5
   colorFilter:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
@@ -228,7 +277,7 @@ MonoBehaviour:
     m_Value: 0
   saturation:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 24
 --- !u!114 &7391319092446245454
 MonoBehaviour:
   m_ObjectHideFlags: 3

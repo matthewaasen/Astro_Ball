@@ -35,7 +35,12 @@ public class BallController : MonoBehaviour
 
 
     void OnCollisionEnter(Collision c)
-    {
+    {   
+        //sets the first hit ball color
+        if (c.gameObject.CompareTag("CueBall") && (GameManager.Instance.firstHit == "None"||GameManager.Instance.firstHit == ""))
+        {
+            GameManager.Instance.firstHit = ballColor;
+        }   
         //prevents sound from occuring before first shot
         if(GameManager.Instance.currentState != GameState.Turn0)
         {

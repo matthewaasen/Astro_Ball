@@ -58,21 +58,24 @@ public class PocketController : MonoBehaviour
     {
         if (trigger.gameObject.CompareTag("Ball"))
         {
-
+            string BallColor = trigger.gameObject.GetComponent<BallController>().ballColor;
+            GameManager.Instance.BallSunk(trigger.gameObject.GetComponent<BallController>().ballColor, trigger.gameObject);
+        
             if(trigger.gameObject.GetComponent<BallController>().ballColor == GameManager.Instance.p1Color)
             {
+                asource.PlayOneShot(pocketSound, 0.8f);
                 GameManager.Instance.p1Left--;
             }else if(trigger.gameObject.GetComponent<BallController>().ballColor == GameManager.Instance.p2Color)
             {
+                asource.PlayOneShot(otherPocketSound, 0.8f);
                 GameManager.Instance.p2Left--;
             }
-            GameManager.Instance.BallSunk(trigger.gameObject.GetComponent<BallController>().ballColor, trigger.gameObject);
-        }
+            }
         if (trigger.gameObject.CompareTag("CueBall"))
         {
             GameManager.Instance.scratch = true;
             GameManager.Instance.BallSunk(trigger.gameObject.GetComponent<BallController>().ballColor, trigger.gameObject);
-            asource.PlayOneShot(scratchSound, 1.0f);
+            asource.PlayOneShot(scratchSound, 0.8f);
         }
         if (trigger.gameObject.CompareTag("8Ball"))
         {
