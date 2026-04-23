@@ -214,6 +214,20 @@ public class GameManager : MonoBehaviour
                 cueBallController.lr.enabled = false;
                 currentState = GameState.P2Motion;
             }
+        }else if(currentState == GameState.P1Wins)
+        {
+            FreezeBalls();
+            cueBallController.lr.enabled = false;
+            cueBallController.canShoot = false;
+            turnText.text = "Player 1 Wins!";
+            turnText.gameObject.SetActive(true);
+        }else if(currentState == GameState.P2Wins)
+        {
+            FreezeBalls();
+            cueBallController.lr.enabled = false;
+            cueBallController.canShoot = false;
+            turnText.text = "Player 2 Wins!";
+            turnText.gameObject.SetActive(true);
         }
 
         updateGameStateText();
@@ -247,10 +261,11 @@ public class GameManager : MonoBehaviour
     }
     private void updateGameStateText()
     {
-        gameStateText.text = "P1 Left: " + p1Left + " P2 Left: " + p2Left;
+        gameStateText.text = "Player 1 Left: " + p1Left + " Player 2 Left: " + p2Left;
         if(currentState == GameState.Menu)
         {
             turnText.gameObject.SetActive(false);
+            gameStateText.text = "";
         }
         else
         {
@@ -260,7 +275,7 @@ public class GameManager : MonoBehaviour
         {
             turnText.text = "Player 1's Turn";
         }
-        else
+        else if(currentState == GameState.P2Motion || currentState == GameState.P2Turn)
         {
             turnText.text = "Player 2's Turn";
         }
