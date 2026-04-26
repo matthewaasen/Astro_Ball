@@ -102,6 +102,7 @@ public class GameManager : MonoBehaviour
                 {
                     currentState = GameState.P2Turn;
                     FreezeBalls();
+                    resetSunkStatus();
                     return;
                 }
                 //p1 Foul
@@ -111,6 +112,7 @@ public class GameManager : MonoBehaviour
                     cueBallController.lr.enabled = true;
                     currentState = GameState.P2Turn;
                     FreezeBalls();
+                    resetSunkStatus();
                     asource.PlayOneShot(turnChangeSound, 0.5f);
                     foul("p1");
                     return;
@@ -122,6 +124,7 @@ public class GameManager : MonoBehaviour
                     cueBallController.lr.enabled = true;
                     currentState = GameState.P1Turn;
                     FreezeBalls();
+                    resetSunkStatus();
                     return;
                 }else{ //p1 turn over, switch to p2
                     cueBallController.PointToMiddle();
@@ -129,6 +132,7 @@ public class GameManager : MonoBehaviour
                     currentState = GameState.P2Turn;
                     asource.PlayOneShot(turnChangeSound, 0.5f);
                     FreezeBalls();
+                    resetSunkStatus();
                 }
                 
             }
