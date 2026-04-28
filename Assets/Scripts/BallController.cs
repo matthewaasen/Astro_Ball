@@ -11,7 +11,7 @@ public class BallController : MonoBehaviour
     public string ballColor;
     public bool sunk;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         asource = GetComponent<AudioSource>();

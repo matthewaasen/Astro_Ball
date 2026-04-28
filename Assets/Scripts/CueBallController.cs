@@ -66,6 +66,7 @@ public class CueBallController : MonoBehaviour
 
         if (canShoot)
         {
+            //ball points to the mouse
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Mouse.current.position.x.ReadValue(), Mouse.current.position.y.ReadValue(), Camera.main.transform.position.y - tf.position.y));
             Vector3 direction = mousePos - tf.position;
             transform.rotation = Quaternion.LookRotation(direction);
@@ -93,6 +94,7 @@ public class CueBallController : MonoBehaviour
     void UpdateLaser()
     {
         lr.SetPosition(0,tf.position);
+        //just points forward out of the ball
         if(Physics.Raycast(tf.position, tf.forward, out hit))
         {
             lr.SetPosition(1, hit.point);
@@ -107,8 +109,8 @@ public class CueBallController : MonoBehaviour
 
     public void Scratch()
     {
+        //resets the ball to the starting position and reactivates it
         tf.position = new Vector3(0, tf.position.y, -0.7f);
-        //disables the ball's physics and makes it invisible
         GetComponent<MeshRenderer>().enabled = true;
         GetComponent<SphereCollider>().enabled = true;
         GetComponent<Rigidbody>().isKinematic = false;
@@ -116,6 +118,7 @@ public class CueBallController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        //Detects which ball it touches first (for foul detection)
         if(GameManager.Instance.firstHit == "None" && collision.gameObject.CompareTag("Ball"))
         {
             GameManager.Instance.firstHit = collision.gameObject.GetComponent<BallController>().ballColor;

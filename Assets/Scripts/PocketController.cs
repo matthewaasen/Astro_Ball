@@ -22,16 +22,15 @@ public class PocketController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-         //adjusts color
+         //adjusts color (light object and material) based on each player's color (white for unassigned)
         if (GameManager.Instance.currentState == GameState.Turn0 || GameManager.Instance.currentState == GameState.Menu)
         {
-                //sets to Material 0 and the light to white
+            
                 mr.material = materials[0];
                 light.color = Color.white;
         }
         if (GameManager.Instance.currentState == GameState.P1Turn || GameManager.Instance.currentState == GameState.P1Motion)
         {
-                //sets to Material 1 and the light to blue
                 if(GameManager.Instance.p1Color == "Red")
                 {
                     mr.material = materials[2];
@@ -55,7 +54,7 @@ public class PocketController : MonoBehaviour
     }
 
     private void OnTriggerEnter (Collider trigger)
-    {
+    {   
         if (trigger.gameObject.CompareTag("Ball"))
         {
             string BallColor = trigger.gameObject.GetComponent<BallController>().ballColor;

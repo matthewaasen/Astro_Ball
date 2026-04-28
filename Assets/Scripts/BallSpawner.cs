@@ -15,7 +15,7 @@ public class BallSpawner : MonoBehaviour
         //Creates the balls
         for(int i = 0; i < 15; i++)
         {
-            //position
+            //positions are based on an array of values
             ballObjects[i] = Instantiate(ballPrefab, ballPositions[i]+ new Vector3(0, 0, 0.4f), Quaternion.identity, transform);
             ballObjects[i].transform.position = new Vector3(ballObjects[i].transform.position.x, ballObjects[i].transform.position.y, ballObjects[i].transform.position.z + 0.67f);
         }

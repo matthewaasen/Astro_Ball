@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
 
             }else
             {
+                //switches between the camera angles
                 mainCamera.gameObject.SetActive(true);
                 menuCamera.gameObject.SetActive(false);
             }
